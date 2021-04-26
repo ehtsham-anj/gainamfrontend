@@ -1,30 +1,29 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import {Inventory} from '../../../model/inventory';
 import {MatPaginator, MatTableDataSource, MatSort} from '@angular/material';
-import { Inventory } from 'src/app/model/inventory';
 import { ChefService } from 'src/app/services/chef.service';
-//import {Inventory} from '../../../model/Inventory';
+
 declare var $: any;
 
 
 @Component({
-  selector: 'app-inventory-list',
-  templateUrl: './inventory-list.component.html',
-  styleUrls: ['./inventory-list.component.css']
+  selector: 'app-inventory-list-chef',
+  templateUrl: './inventory-list-chef.component.html',
+  styleUrls: ['./inventory-list-chef.component.css']
 })
-export class InventoryListComponent implements OnInit {
-  [x: string]: any;
-  productList: Array<Inventory>;
+export class InventoryListChefComponent implements OnInit {
+
+  inventoryList: Array<Inventory>;
   dataSource: MatTableDataSource<Inventory> = new MatTableDataSource();
-  displayedColumns: string[] = ['id', 'name', 'quantity', 'action'];
-  selectedProduct: Inventory = new Inventory();
+  displayedColumns: string[] = ['id', 'name', 'amount', 'action'];
+  selectedInventory: Inventory = new Inventory();
   errorMessage: string;
   infoMessage: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  inventoryList: any;
 
-  constructor(private adminService: ChefService) { }
+  constructor(private chefService: ChefService) { }
 
   ngOnInit() {
     this.findAllInventories();
@@ -43,8 +42,8 @@ export class InventoryListComponent implements OnInit {
   }
 
   createNewInventoryRequest(){
-    this.selectedInventory = new Inventory();
-    $('#inventorytModal').modal('show');
+    this.selectedInventory= new Inventory();
+    $('#inventoryModal').modal('show');
   }
 
   editInventoryRequest(inventory: Inventory){
@@ -61,7 +60,7 @@ export class InventoryListComponent implements OnInit {
   }
 
   createInventory(){
-    this.adminService.createInventory(this.selectedInventory).subscribe(data => {
+    this.chefService.createInventory(this.selectedInventory).subscribe(data => {
       this.inventoryList.push(data);
       this.dataSource = new MatTableDataSource(this.inventoryList);
       this.infoMessage = "Mission is completed";
@@ -72,7 +71,7 @@ export class InventoryListComponent implements OnInit {
   }
 
   updateInventory(){
-    this.adminService.updateInventory(this.selectedInventory).subscribe(data => {
+    this.chefService.updateInventory(this.selectedInventory).subscribe(data => {
       let itemIndex = this.inventoryList.findIndex(item => item.id == this.selectedInventory.id);
       this.inventoryList[itemIndex] = this.selectedInventory;
       this.dataSource = new MatTableDataSource(this.inventoryList);
@@ -84,12 +83,12 @@ export class InventoryListComponent implements OnInit {
   }
 
   deleteInventoryRequest(inventory: Inventory){
-    this.selectedProduct = inventory;
+    this.selectedInventory = inventory;
     $('#deleteModal').modal('show');
   }
 
   deleteInventory(){
-    this.adminService.deleteInventory(this.selectedInventory).subscribe(data => {
+    this.chefService.deleteInventory(this.selectedInventory).subscribe(data => {
       let itemIndex = this.inventoryList.findIndex(item => item.id == this.selectedInventory.id);
       if(itemIndex !== -1){
         this.inventoryList.splice(itemIndex, 1);
