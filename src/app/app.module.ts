@@ -40,7 +40,8 @@ import { ChefDashboardComponent } from './components/chef/chef-dashboard/chef-da
 import { InventoryListComponent } from './components/admin/inventory-list/inventory-list.component';
 import {ManagerdashboardComponent} from './components/manager/managerdashboard/managerdashboard.component'
 import {InventoryListManagerComponent} from './components/manager/inventory-list-manager/inventory-list-manager.component';
-import { ReservationListManagerComponent } from './components/manager/reservation-list-manager/reservation-list-manager.component'
+import { ReservationListManagerComponent } from './components/manager/reservation-list-manager/reservation-list-manager.component';
+import { ProductListManagerComponent } from './components/manager/product-list-manager/product-list-manager.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,7 +75,8 @@ import { ReservationListManagerComponent } from './components/manager/reservatio
     InventoryListComponent,
     ManagerdashboardComponent,
     InventoryListManagerComponent,
-    ReservationListManagerComponent
+    ReservationListManagerComponent,
+    ProductListManagerComponent
     
     
   ],

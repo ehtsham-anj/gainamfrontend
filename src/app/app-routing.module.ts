@@ -23,6 +23,7 @@ import { InventoryListComponent } from './components/admin/inventory-list/invent
 import { ManagerdashboardComponent } from './components/manager/managerdashboard/managerdashboard.component';
 import { InventoryListManagerComponent } from './components/manager/inventory-list-manager/inventory-list-manager.component';
 import { ReservationListManagerComponent } from './components/manager/reservation-list-manager/reservation-list-manager.component';
+import { ProductListManagerComponent } from './components/manager/product-list-manager/product-list-manager.component';
 // import {HeaderComponent} from './components/header/header.component'
 
 const routes: Routes = [
@@ -70,6 +71,12 @@ const routes: Routes = [
   canActivate: [AuthGuard],
   data: {roles: [Role.MANAGER]}
   },
+
+  {path: 'product-list-manager',
+  component:ProductListManagerComponent,
+  canActivate: [AuthGuard],
+  data: {roles: [Role.MANAGER]}
+  },
   
   
   {path: 'user-list',
@@ -94,7 +101,7 @@ const routes: Routes = [
   {path: 'product-list',
   component: ProductListComponent,
   canActivate: [AuthGuard],
-  data: {allowedRoles: ['admin','chef','manager']}
+  data: {allowedRoles: ['admin','chef']}
  },
  {path: 'transaction-list',
  component: TransactionListComponent,

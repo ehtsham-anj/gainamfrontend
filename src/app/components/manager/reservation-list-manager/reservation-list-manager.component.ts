@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {AdminService} from '../../../services/admin.service';
+import {ManagerService} from '../../../services/manager.service';
 import {Reserve} from '../../../model/reserve';
 import {MatPaginator, MatTableDataSource, MatSort} from '@angular/material';
 
@@ -25,7 +25,7 @@ export class ReservationListManagerComponent implements OnInit {
 
   users : any;
 
-  constructor(private adminService: AdminService) { }
+  constructor(private managerService: ManagerService) { }
 
   ngOnInit() {
     this.findAllReservations();
@@ -37,7 +37,7 @@ export class ReservationListManagerComponent implements OnInit {
   }
 
   findAllReservations(){
-    this.adminService.findAllReservations().subscribe(data => {
+    this.managerService.findAllReservations().subscribe(data => {
       this.reserveList = data;
       this.dataSource.data = data;
     });
@@ -49,7 +49,7 @@ export class ReservationListManagerComponent implements OnInit {
   }
 
   editUser(){
-    this.adminService.updateReserve(this.selectedReserve).subscribe(data => {
+    this.managerService.updateReserve(this.selectedReserve).subscribe(data => {
       let itemIndex = this.reserveList.findIndex(item => item.id == this.selectedReserve.id);
       this.reserveList[itemIndex] = this.selectedReserve;
       this.dataSource = new MatTableDataSource(this.reserveList);
@@ -70,7 +70,7 @@ export class ReservationListManagerComponent implements OnInit {
   }
 
   deleteReserve(){
-    this.adminService.deleteReserve(this.selectedReserve).subscribe(data => {
+    this.managerService.deleteReserve(this.selectedReserve).subscribe(data => {
       let itemIndex = this.reserveList.findIndex(item => item.id == this.selectedReserve.id);
       if(itemIndex !== -1){
         this.reserveList.splice(itemIndex, 1);
